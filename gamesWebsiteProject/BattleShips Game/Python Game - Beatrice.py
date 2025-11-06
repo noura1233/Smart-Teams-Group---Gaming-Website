@@ -101,10 +101,6 @@ def main():
     print("\nDEBUG: Enemy grid (for testing):")
     print_grid(enemy_grid, fog_of_war=False)
 
-    # DEBUG – reveal enemy grid if needed
-    # print("\nDEBUG: Enemy Grid (no fog):")
-    # print_grid(enemy_grid, fog_of_war=False)
-
     ships_remaining = len(ships)
     turns = 0
 
