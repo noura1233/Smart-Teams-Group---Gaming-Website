@@ -26,11 +26,11 @@ while True:
         clubsDeck = [" A♣"," 2♣"," 3♣"," 4♣"," 5♣"," 6♣"," 7♣"," 8♣"," 9♣","10♣"," J♣"," Q♣"," K♣"]
         heartsDeck = [" A♥"," 2♥"," 3♥"," 4♥"," 5♥"," 6♥"," 7♥"," 8♥"," 9♥","10♥"," J♥"," Q♥"," K♥"]
         fullDeck = spadeDeck + diamsDeck + clubsDeck + heartsDeck
-        playersHand = ["PC1", "PC2", "PC3", "PC4", "PC5"]
-        dealersHand = ["DC1", "DC2", "DC3", "DC4", "DC5"]
+        playersHand = ["PC1", "PC2", "PC3"]
+        dealersHand = ["DC1", "DC2", "DC3"]
+        dealerHits = 0
         clear()
-        print("Shuffling the deck")
-        print("Rules: ")
+        print("Shuffling the deck...")
         random.shuffle(fullDeck)
         print(" ___________")
         print("||||########|")
@@ -38,7 +38,13 @@ while True:
         print("||||########|")
         print("||||########|")
         print("||||########|")
+        print("")
+        print("Rules: Goal is to get 21 or more than the dealer, player will be given") 
+        print("two cards, then can 'hit' for another card, or 'stand' to stay at two.")
+        print("Player loses if they go over 21 or if dealer gets more.")
+        print("Dealer and player can have a max of 3 cards.")
         time.sleep(4)
+        choice = input("Ready? (y) > ")
         state=2
 
     if(state==2): #Game
@@ -230,26 +236,130 @@ while True:
             print("               |___|___|________|")
             time.sleep(2)
 
-            #If dealer hits
             # /// DEALER 3RD CARD ///
-            dealerHits = 1
-            if (dealerHits == 1):
+            #TODO: Loop to decide whether dealer hits
+            if (dealerHits == 0):
                 clear()
+                dealersHand[2] = fullDeck[0]
+                fullDeck.pop(0)
                 print("Dealer hits: 3rd card dealt")
+                print(" ___________    ___ ___ ________")
+                print("||||########|  |   |   |########|")
+                print("||||########|  |" + dealersHand[0] + "|" + dealersHand[1] + "|########|")
+                print("||||########|  |   |   |########|")
+                print("||||########|  |   |   |########|")
+                print("||||########|  |___|___|########|")
+                print("                ___ ___ ________")
+                print("               |   |   |        |")
+                print("               |" + playersHand[0] + "|" + playersHand[1] + "|" + playersHand[2] + "     |")
+                print("               |   |   |        |")
+                print("               |   |   |        |")
+                print("               |___|___|________|")
                 time.sleep(2)
 
                 clear()
                 print("Dealer 3rd card revealed")
-                time.sleep(2)
+                print(" ___________    ___ ___ ________")
+                print("||||########|  |   |   |        |")
+                print("||||########|  |" + dealersHand[0] + "|" + dealersHand[1] + "|" + dealersHand[2] + "     |")
+                print("||||########|  |   |   |        |")
+                print("||||########|  |   |   |        |")
+                print("||||########|  |___|___|________|")
+                print("                ___ ___ ________")
+                print("               |   |   |        |")
+                print("               |" + playersHand[0] + "|" + playersHand[1] + "|" + playersHand[2] + "     |")
+                print("               |   |   |        |")
+                print("               |   |   |        |")
+                print("               |___|___|________|")
+                time.sleep(5)
 
                 #TODO: Check if Dealer busts
+
+                #TODO: Victory Checks
             else:
+                #TODO: Dealer stands, victory checks
+                print("PLAYER STANDS @3: DEALER STANDS @2")
+                time.sleep(10)
                 pass
             
-
         else:
             # /// PLAYER STANDS: 2 CARDS DEALT
-            #TODO: Dealer hits til 17 or more, check who wins
+            #TODO: Dealer hit if loop, bust check then victory check
+            print("PLAYER STANDS @2: TODO: ADD DEALER IF LOOP")
+            time.sleep(5)
+            clear()
+            print("Players stands at 2 cards")
+            print(" ___________    ________ ___")
+            print("||||########|  |        |###|")
+            print("||||########|  |" + dealersHand[0] + "     |###|")
+            print("||||########|  |        |###|")
+            print("||||########|  |        |###|")
+            print("||||########|  |________|###|")
+            print("                ___ ________")
+            print("               |   |        |")
+            print("               |" + playersHand[0] + "|" + playersHand[1] + "     |")
+            print("               |   |        |")
+            print("               |   |        |")
+            print("               |___|________|")
+            time.sleep(5)
+
+            clear()
+            print("Dealer 2nd card revealed")
+            print(" ___________    ___ ________")
+            print("||||########|  |   |        |")
+            print("||||########|  |" + dealersHand[0] + "|" + dealersHand[1] + "     |")
+            print("||||########|  |   |        |")
+            print("||||########|  |   |        |")
+            print("||||########|  |___|________|")
+            print("                ___ ________")
+            print("               |   |        |")
+            print("               |" + playersHand[0] + "|" + playersHand[1] + "     |")
+            print("               |   |        |")
+            print("               |   |        |")
+            print("               |___|________|")
+            time.sleep(5)
+
+            #TODO: Loop to decide whether dealer hits
+            if(dealerHits == 0):
+                clear()
+                dealersHand[2] = fullDeck[0]
+                fullDeck.pop(0)
+                print("Dealer hits: 3rd card dealt")
+                print(" ___________    ___ ___ ________")
+                print("||||########|  |   |   |########|")
+                print("||||########|  |" + dealersHand[0] + "|" + dealersHand[1] + "|########|")
+                print("||||########|  |   |   |########|")
+                print("||||########|  |   |   |########|")
+                print("||||########|  |___|___|########|")
+                print("                ___ ________")
+                print("               |   |        |")
+                print("               |" + playersHand[0] + "|" + playersHand[1] + "     |")
+                print("               |   |        |")
+                print("               |   |        |")
+                print("               |___|________|")
+                time.sleep(2)
+
+                clear()
+                print("Dealer 3rd card revealed")
+                print(" ___________    ___ ___ ________")
+                print("||||########|  |   |   |        |")
+                print("||||########|  |" + dealersHand[0] + "|" + dealersHand[1] + "|" + dealersHand[2] + "     |")
+                print("||||########|  |   |   |        |")
+                print("||||########|  |   |   |        |")
+                print("||||########|  |___|___|________|")
+                print("                ___ ________")
+                print("               |   |        |")
+                print("               |" + playersHand[0] + "|" + playersHand[1] + "     |")
+                print("               |   |        |")
+                print("               |   |        |")
+                print("               |___|________|")
+                time.sleep(10)
+
+                #TODO: Dealer bust check, victory check
+            else:
+                #TODO: Victory Check
+                pass
+
             pass
 
 
@@ -269,5 +379,7 @@ while True:
 
 
     if(state==9): #Program end
-        print("Program end")
+        clear()
+        print("Game ended")
+        print("Thanks for playing!")
         break
