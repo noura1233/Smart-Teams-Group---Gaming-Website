@@ -21,13 +21,13 @@ while True:
 
     if(state==1): #Setup
         #Card Array
-        spadeDeck = [" A♠"," 2♠"," 3♠"," 4♠"," 5♠"," 6♠"," 7♠"," 8♠"," 9♠","10♠"," J♠"," Q♠"," K♠"]
-        diamsDeck = [" A♦"," 2♦"," 3♦"," 4♦"," 5♦"," 6♦"," 7♦"," 8♦"," 9♦","10♦"," J♦"," Q♦"," K♦"]
-        clubsDeck = [" A♣"," 2♣"," 3♣"," 4♣"," 5♣"," 6♣"," 7♣"," 8♣"," 9♣","10♣"," J♣"," Q♣"," K♣"]
-        heartsDeck = [" A♥"," 2♥"," 3♥"," 4♥"," 5♥"," 6♥"," 7♥"," 8♥"," 9♥","10♥"," J♥"," Q♥"," K♥"]
-        fullDeck = spadeDeck + diamsDeck + clubsDeck + heartsDeck
-        playersHand = ["PC1", "PC2", "PC3"]
-        dealersHand = ["DC1", "DC2", "DC3"]
+        spadeDeck = [[" A","♠"],[" 2","♠"],[" 3","♠"],[" 4","♠"],[" 5","♠"],[" 6","♠"],[" 7","♠"],[" 8","♠"],[" 9","♠"],["10","♠"],[" J","♠"],[" Q","♠"],[" K","♠"]]
+        diamsDeck = [[" A","♦"],[" 2","♦"],[" 3","♦"],[" 4","♦"],[" 5","♦"],[" 6","♦"],[" 7","♦"],[" 8","♦"],[" 9","♦"],["10","♦"],[" J","♦"],[" Q","♦"],[" K","♦"]]
+        clubsDeck = [[" A","♣"],[" 2","♣"],[" 3","♣"],[" 4","♣"],[" 5","♣"],[" 6","♣"],[" 7","♣"],[" 8","♣"],[" 9","♣"],["10","♣"],[" J","♣"],[" Q","♣"],[" K","♣"]]
+        heartDeck = [[" A","♥"],[" 2","♥"],[" 3","♥"],[" 4","♥"],[" 5","♥"],[" 6","♥"],[" 7","♥"],[" 8","♥"],[" 9","♥"],["10","♥"],[" J","♥"],[" Q","♥"],[" K","♥"]]
+        fullDeck = spadeDeck + diamsDeck + clubsDeck + heartDeck
+        playersHand = [["PC1Num","PC1Suit"], ["PC2Num","PC2Suit"], ["PC3Num","PC3Suit"]]
+        dealersHand = [["DC1Num","DC1Suit"], ["DC2Num","DC2Suit"], ["DC3Num","DC3Suit"]]
         dealerHits = 0
         clear()
         print("Shuffling the deck...")
@@ -44,6 +44,9 @@ while True:
         print("Player loses if they go over 21 or if dealer gets more.")
         print("Dealer and player can have a max of 3 cards.")
         time.sleep(4)
+        print(fullDeck)
+        print(" //// TEST PRINTS FOR ARRAYS //// ")
+        time.sleep(4)
         choice = input("Ready? (y) > ")
         state=2
 
@@ -51,8 +54,9 @@ while True:
         # /// PLAYER 1ST CARD ///
         #Player gets 1st card, hidden
         clear()
-        playersHand[0] = fullDeck[0]
-        fullDeck.pop(0)
+        playersHand[0][0] = fullDeck[0][0]
+        playersHand[0][1] = fullDeck[0][1]
+        del fullDeck[0]
         print("Game Start, Player dealt one card")
         print(" ___________")
         print("||||########|")
@@ -79,7 +83,7 @@ while True:
         print("||||########|")
         print("                ________")
         print("               |        |")
-        print("               |" + playersHand[0] + "     |")
+        print("               |" + playersHand[0][0] + playersHand[0][1] + "     |")
         print("               |        |")
         print("               |        |")
         print("               |________|")
@@ -87,8 +91,9 @@ while True:
 
         # /// DEALER 1ST CARD ///
         #Dealer gets 1st card, hidden
-        dealersHand[0] = fullDeck[0]
-        fullDeck.pop(0)
+        dealersHand[0][0] = fullDeck[0][0]
+        dealersHand[0][1] = fullDeck[0][1]
+        del fullDeck[0]
         clear()
         print("Dealer dealt one card")
         print(" ___________    ________")
@@ -99,7 +104,7 @@ while True:
         print("||||########|  |########|")
         print("                ________")
         print("               |        |")
-        print("               |" + playersHand[0] + "     |")
+        print("               |" + playersHand[0][0] + playersHand[0][1] + "     |")
         print("               |        |")
         print("               |        |")
         print("               |________|")
@@ -110,13 +115,13 @@ while True:
         print("Dealer card revealed")
         print(" ___________    ________")
         print("||||########|  |        |")
-        print("||||########|  |" + dealersHand[0] + "     |")
+        print("||||########|  |" + dealersHand[0][0] + dealersHand[0][1] + "     |")
         print("||||########|  |        |")
         print("||||########|  |        |")
         print("||||########|  |________|")
         print("                ________")
         print("               |        |")
-        print("               |" + playersHand[0] + "     |")
+        print("               |" + playersHand[0][0] + playersHand[0][1] + "     |")
         print("               |        |")
         print("               |        |")
         print("               |________|")
@@ -124,18 +129,19 @@ while True:
 
         # /// PLAYER 2ND CARD ///
         clear()
-        playersHand[1] = fullDeck[0]
-        fullDeck.pop(0)
+        playersHand[1][0] = fullDeck[0][0]
+        playersHand[1][1] = fullDeck[0][1]
+        del fullDeck[0]
         print("Player 2nd card dealt")
         print(" ___________    ________")
         print("||||########|  |        |")
-        print("||||########|  |" + dealersHand[0] + "     |")
+        print("||||########|  |" + dealersHand[0][0] + dealersHand[0][1] + "     |")
         print("||||########|  |        |")
         print("||||########|  |        |")
         print("||||########|  |________|")
         print("                ___ ________")
         print("               |   |########|")
-        print("               |" + playersHand[0] + "|########|")
+        print("               |" + playersHand[0][0] + playersHand[0][1] + "|########|")
         print("               |   |########|")
         print("               |   |########|")
         print("               |___|########|")
@@ -145,13 +151,13 @@ while True:
         print("Player 2nd card revealed")
         print(" ___________    ________")
         print("||||########|  |        |")
-        print("||||########|  |" + dealersHand[0] + "     |")
+        print("||||########|  |" + dealersHand[0][0] + dealersHand[0][1] + "     |")
         print("||||########|  |        |")
         print("||||########|  |        |")
         print("||||########|  |________|")
         print("                ___ ________")
         print("               |   |        |")
-        print("               |" + playersHand[0] + "|" + playersHand[1] + "     |")
+        print("               |" + playersHand[0][0] + playersHand[0][1] + "|" + playersHand[1][0] + playersHand[1][1] + "     |")
         print("               |   |        |")
         print("               |   |        |")
         print("               |___|________|")
@@ -159,18 +165,19 @@ while True:
 
         # /// DEALER 2ND CARD ///
         clear()
-        dealersHand[1] = fullDeck[0]
-        fullDeck.pop(0)
+        dealersHand[1][0] = fullDeck[0][0]
+        dealersHand[1][1] = fullDeck[0][1]
+        del fullDeck[0]
         print("Dealer 2nd card dealt")
         print(" ___________    ________ ___")
         print("||||########|  |        |###|")
-        print("||||########|  |" + dealersHand[0] + "     |###|")
+        print("||||########|  |" + dealersHand[0][0] + dealersHand[0][1] + "     |###|")
         print("||||########|  |        |###|")
         print("||||########|  |        |###|")
         print("||||########|  |________|###|")
         print("                ___ ________")
         print("               |   |        |")
-        print("               |" + playersHand[0] + "|" + playersHand[1] + "     |")
+        print("               |" + playersHand[0][0] + playersHand[0][1] + "|" + playersHand[1][0] + playersHand[1][1] + "     |")
         print("               |   |        |")
         print("               |   |        |")
         print("               |___|________|")
@@ -184,18 +191,19 @@ while True:
         if(choice == 'h'):
             # /// PLAYER 3RD CARD ///
             clear()
-            playersHand[2] = fullDeck[0]
-            fullDeck.pop(0)
+            playersHand[2][0] = fullDeck[0][0]
+            playersHand[2][1] = fullDeck[0][1]
+            del fullDeck[0]
             print("Player Stands: 3rd card dealt")
             print(" ___________    ________ ___")
             print("||||########|  |        |###|")
-            print("||||########|  |" + dealersHand[0] + "     |###|")
+            print("||||########|  |" + dealersHand[0][0] + dealersHand[0][1] + "     |###|")
             print("||||########|  |        |###|")
             print("||||########|  |        |###|")
             print("||||########|  |________|###|")
             print("                ___ ___ ________")
             print("               |   |   |########|")
-            print("               |" + playersHand[0] + "|" + playersHand[1] + "|########|")
+            print("               |" + playersHand[0][0] + playersHand[0][1] + "|" + playersHand[1][0] + playersHand[1][1] + "|########|")
             print("               |   |   |########|")
             print("               |   |   |########|")
             print("               |___|___|########|")
@@ -205,13 +213,13 @@ while True:
             print("Player 3rd card revealed")
             print(" ___________    ________ ___")
             print("||||########|  |        |###|")
-            print("||||########|  |" + dealersHand[0] + "     |###|")
+            print("||||########|  |" + dealersHand[0][0] + dealersHand[0][1] + "     |###|")
             print("||||########|  |        |###|")
             print("||||########|  |        |###|")
             print("||||########|  |________|###|")
             print("                ___ ___ ________")
             print("               |   |   |        |")
-            print("               |" + playersHand[0] + "|" + playersHand[1] + "|" + playersHand[2] + "     |")
+            print("               |" + playersHand[0][0] + playersHand[0][1] + "|" + playersHand[1][0] + playersHand[1][1] + "|" + playersHand[2][0] + playersHand[2][1] + "     |")
             print("               |   |   |        |")
             print("               |   |   |        |")
             print("               |___|___|________|")
@@ -224,13 +232,13 @@ while True:
             print("Dealer 2nd card revealed")
             print(" ___________    ___ ________")
             print("||||########|  |   |        |")
-            print("||||########|  |" + dealersHand[0] + "|" + dealersHand[1] + "     |")
+            print("||||########|  |" + dealersHand[0][0] + dealersHand[0][1] + "|" + dealersHand[1][0] + dealersHand[1][1] + "     |")
             print("||||########|  |   |        |")
             print("||||########|  |   |        |")
             print("||||########|  |___|________|")
             print("                ___ ___ ________")
             print("               |   |   |        |")
-            print("               |" + playersHand[0] + "|" + playersHand[1] + "|" + playersHand[2] + "     |")
+            print("               |" + playersHand[0][0] + playersHand[0][1] + "|" + playersHand[1][0] + playersHand[1][1] + "|" + playersHand[2][0] + playersHand[2][1] + "     |")
             print("               |   |   |        |")
             print("               |   |   |        |")
             print("               |___|___|________|")
@@ -240,18 +248,19 @@ while True:
             #TODO: Loop to decide whether dealer hits
             if (dealerHits == 0):
                 clear()
-                dealersHand[2] = fullDeck[0]
-                fullDeck.pop(0)
+                dealersHand[2][0] = fullDeck[0][0]
+                dealersHand[2][1] = fullDeck[0][1]
+                del fullDeck[0]
                 print("Dealer hits: 3rd card dealt")
                 print(" ___________    ___ ___ ________")
                 print("||||########|  |   |   |########|")
-                print("||||########|  |" + dealersHand[0] + "|" + dealersHand[1] + "|########|")
+                print("||||########|  |" + dealersHand[0][0] + dealersHand[0][1] + "|" + dealersHand[1][0] + dealersHand[1][1] + "|########|")
                 print("||||########|  |   |   |########|")
                 print("||||########|  |   |   |########|")
                 print("||||########|  |___|___|########|")
                 print("                ___ ___ ________")
                 print("               |   |   |        |")
-                print("               |" + playersHand[0] + "|" + playersHand[1] + "|" + playersHand[2] + "     |")
+                print("               |" + playersHand[0][0] + playersHand[0][1] + "|" + playersHand[1][0] + playersHand[1][1] + "|" + playersHand[2][0] + playersHand[2][1] + "     |")
                 print("               |   |   |        |")
                 print("               |   |   |        |")
                 print("               |___|___|________|")
@@ -261,13 +270,13 @@ while True:
                 print("Dealer 3rd card revealed")
                 print(" ___________    ___ ___ ________")
                 print("||||########|  |   |   |        |")
-                print("||||########|  |" + dealersHand[0] + "|" + dealersHand[1] + "|" + dealersHand[2] + "     |")
+                print("||||########|  |" + dealersHand[0][0] + dealersHand[0][1] + "|" + dealersHand[1][0] + dealersHand[1][1] + "|" + dealersHand[2][0] + dealersHand[2][1] + "     |")
                 print("||||########|  |   |   |        |")
                 print("||||########|  |   |   |        |")
                 print("||||########|  |___|___|________|")
                 print("                ___ ___ ________")
                 print("               |   |   |        |")
-                print("               |" + playersHand[0] + "|" + playersHand[1] + "|" + playersHand[2] + "     |")
+                print("               |" + playersHand[0][0] + playersHand[0][1] + "|" + playersHand[1][0] + playersHand[1][1] + "|" + playersHand[2][0] + playersHand[2][1] + "     |")
                 print("               |   |   |        |")
                 print("               |   |   |        |")
                 print("               |___|___|________|")
@@ -291,13 +300,13 @@ while True:
             print("Players stands at 2 cards")
             print(" ___________    ________ ___")
             print("||||########|  |        |###|")
-            print("||||########|  |" + dealersHand[0] + "     |###|")
+            print("||||########|  |" + dealersHand[0][0] + dealersHand[0][1] + "     |###|")
             print("||||########|  |        |###|")
             print("||||########|  |        |###|")
             print("||||########|  |________|###|")
             print("                ___ ________")
             print("               |   |        |")
-            print("               |" + playersHand[0] + "|" + playersHand[1] + "     |")
+            print("               |" + playersHand[0][0] + playersHand[0][1] + "|" + playersHand[1][0] + playersHand[1][1] + "     |")
             print("               |   |        |")
             print("               |   |        |")
             print("               |___|________|")
@@ -307,13 +316,13 @@ while True:
             print("Dealer 2nd card revealed")
             print(" ___________    ___ ________")
             print("||||########|  |   |        |")
-            print("||||########|  |" + dealersHand[0] + "|" + dealersHand[1] + "     |")
+            print("||||########|  |" + dealersHand[0][0] + dealersHand[0][1] + "|" + dealersHand[1][0] + dealersHand[1][1] + "     |")
             print("||||########|  |   |        |")
             print("||||########|  |   |        |")
             print("||||########|  |___|________|")
             print("                ___ ________")
             print("               |   |        |")
-            print("               |" + playersHand[0] + "|" + playersHand[1] + "     |")
+            print("               |" + playersHand[0][0] + playersHand[0][1] + "|" + playersHand[1][0] + playersHand[1][1] + "     |")
             print("               |   |        |")
             print("               |   |        |")
             print("               |___|________|")
@@ -322,18 +331,19 @@ while True:
             #TODO: Loop to decide whether dealer hits
             if(dealerHits == 0):
                 clear()
-                dealersHand[2] = fullDeck[0]
-                fullDeck.pop(0)
+                dealersHand[2][0] = fullDeck[0][0]
+                dealersHand[2][1] = fullDeck[0][1]
+                del fullDeck[0]
                 print("Dealer hits: 3rd card dealt")
                 print(" ___________    ___ ___ ________")
                 print("||||########|  |   |   |########|")
-                print("||||########|  |" + dealersHand[0] + "|" + dealersHand[1] + "|########|")
+                print("||||########|  |" + dealersHand[0][0] + dealersHand[0][1] + "|" + dealersHand[1][0] + dealersHand[1][1] + "|########|")
                 print("||||########|  |   |   |########|")
                 print("||||########|  |   |   |########|")
                 print("||||########|  |___|___|########|")
                 print("                ___ ________")
                 print("               |   |        |")
-                print("               |" + playersHand[0] + "|" + playersHand[1] + "     |")
+                print("               |" + playersHand[0][0] + playersHand[0][1] + "|" + playersHand[1][0] + playersHand[1][1] + "     |")
                 print("               |   |        |")
                 print("               |   |        |")
                 print("               |___|________|")
@@ -343,13 +353,13 @@ while True:
                 print("Dealer 3rd card revealed")
                 print(" ___________    ___ ___ ________")
                 print("||||########|  |   |   |        |")
-                print("||||########|  |" + dealersHand[0] + "|" + dealersHand[1] + "|" + dealersHand[2] + "     |")
+                print("||||########|  |" + dealersHand[0][0] + dealersHand[0][1] + "|" + dealersHand[1][0] + dealersHand[1][1] + "|" + dealersHand[2][0] + dealersHand[2][1] + "     |")
                 print("||||########|  |   |   |        |")
                 print("||||########|  |   |   |        |")
                 print("||||########|  |___|___|________|")
                 print("                ___ ________")
                 print("               |   |        |")
-                print("               |" + playersHand[0] + "|" + playersHand[1] + "     |")
+                print("               |" + playersHand[0][0] + playersHand[0][1] + "|" + playersHand[1][0] + playersHand[1][1] + "     |")
                 print("               |   |        |")
                 print("               |   |        |")
                 print("               |___|________|")
