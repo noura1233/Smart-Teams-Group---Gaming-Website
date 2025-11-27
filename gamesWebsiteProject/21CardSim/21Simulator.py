@@ -4,10 +4,10 @@ import random
 clear = lambda: os.system('cls') #Creates obj for clearing serial screen
 
 #Variables
+game = True
 state = 0 #Controls what part of game is active, 0 - Title, 1 - Setup, 2 - Start, MORE TO BE ADDED, 9 - End
 aceState = 0 #If more than 1, score can be plus 1 or plus 11, whichever benefits player more, each i in this var is how many aces
-PlayerVictoryState = 0 #Victory variable for player, calculated and used to control outcome of game, 0 = Game in progress, 1 = Victory, 2 = Game over
-DealerVictoryState = 0 #Victory var for dealer, same as player, compared with player after
+victoryState = 0 #Victory variable for player, calculated and used to control outcome of game, 0 = Game in progress, 1 = Victory, 2 = Tie, 3 = Game Over
 #Could make PC1-5 and DC1-5 their own objects, adding to hand when hitting and replace with real cards when revealing
 
 #Functions
@@ -41,27 +41,26 @@ def cardScoreChecker(array, indexVar): #Adds up card values, sets up state for a
             sum = 13
     return sum
 
-def victoryStateSetter(cardScoreVar): #Sets victory state variable according to 
+def victoryStateSetter(playerScoreVar, dealerScoreVar): #Sets victory state variable according to 
     victoryVar = 0
-    if(cardScoreVar > 21):
-        victoryVar = 2
-    elif(cardScoreVar == 21):
-        victoryVar = 1
-    elif(cardScoreVar < 21):
-        victoryVar = 0
-    return victoryVar
+    if (playerScoreVar > dealerScoreVar and playerScore <= 21):
+        victoryVar = 1 #Win
+    elif (playerScoreVar == dealerScoreVar):
+        victoryVar = 2 #Tie
+    elif (playerScoreVar < dealerScoreVar):
+        victoryVar = 3
+
+    
 
 #def scoreComparer():
 
-def victoryChecker(playerVictorVar, dealerVictorVar):
-
-    pass
+#def victoryChecker(playerVictorVar, dealerVictorVar):
 
 
 
 #Main Game Code
-while True:
-    if(state==0): #Title
+while (game == True):
+    while(state==0): #Title
         
         clear()
         print("TItle Screen")
@@ -72,7 +71,7 @@ while True:
         elif(choice=="n"):
             state = 9
 
-    if(state==1): #Setup
+    while(state==1): #Setup
         #Card Array
         spadeDeck = [[" A","♠"],[" 2","♠"],[" 3","♠"],[" 4","♠"],[" 5","♠"],[" 6","♠"],[" 7","♠"],[" 8","♠"],[" 9","♠"],["10","♠"],[" J","♠"],[" Q","♠"],[" K","♠"]]
         diamsDeck = [[" A","♦"],[" 2","♦"],[" 3","♦"],[" 4","♦"],[" 5","♦"],[" 6","♦"],[" 7","♦"],[" 8","♦"],[" 9","♦"],["10","♦"],[" J","♦"],[" Q","♦"],[" K","♦"]]
@@ -80,7 +79,9 @@ while True:
         heartDeck = [[" A","♥"],[" 2","♥"],[" 3","♥"],[" 4","♥"],[" 5","♥"],[" 6","♥"],[" 7","♥"],[" 8","♥"],[" 9","♥"],["10","♥"],[" J","♥"],[" Q","♥"],[" K","♥"]]
         fullDeck = spadeDeck + diamsDeck + clubsDeck + heartDeck
         playersHand = [["PC1Num","PC1Suit"], ["PC2Num","PC2Suit"], ["PC3Num","PC3Suit"]]
+        playerScore = 0
         dealersHand = [["DC1Num","DC1Suit"], ["DC2Num","DC2Suit"], ["DC3Num","DC3Suit"]]
+        dealerScore = 0
         dealerHits = 0
         clear()
         print("Shuffling the deck...")
@@ -99,11 +100,11 @@ while True:
         time.sleep(4)
         print(fullDeck)
         print(" //// TEST PRINTS FOR ARRAYS //// ")
-        time.sleep(4)
+        time.sleep(1)
         choice = input("Ready? (y) > ")
         state=2
 
-    if(state==2): #Game
+    while(state==2): #Game
         # /// PLAYER 1ST CARD ///
         #Player gets 1st card, hidden
         clear()
@@ -141,6 +142,11 @@ while True:
         print("               |        |")
         print("               |________|")
         time.sleep(2)
+        # TEST PASSAGE
+        playerScore = cardScoreChecker(playersHand,1)
+        print("TEST PRINT: Player Score is " + str(playerScore))
+        print("END TEST PRINT")
+        time.sleep(5)
 
         # /// DEALER 1ST CARD ///
         #Dealer gets 1st card, hidden
@@ -215,6 +221,10 @@ while True:
         print("               |   |        |")
         print("               |___|________|")
         time.sleep(2)
+        playerScore = cardScoreChecker(playersHand,2)
+        print("TEST PRINT: Player Score is " + str(playerScore))
+        print("END TEST PRINT")
+        time.sleep(5)
 
         # /// DEALER 2ND CARD ///
         clear()
@@ -277,6 +287,10 @@ while True:
             print("               |   |   |        |") 
             print("               |___|___|________|")
             time.sleep(2)
+            playerScore = cardScoreChecker(playersHand,3)
+            print("TEST PRINT: Player Score is " + str(playerScore))
+            print("END TEST PRINT")
+            time.sleep(5)
 
             #TODO: Loop to check if player busted
 
@@ -441,8 +455,8 @@ while True:
             state=9
 
 
-    if(state==9): #Program end
+    while(state==9): #Program end
         clear()
         print("Game ended")
         print("Thanks for playing!")
-        break
+        game = False
